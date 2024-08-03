@@ -4,8 +4,12 @@ import Link from 'next/link';
 import styles from '@/app/ui/home.module.css'
 import {lusitana} from "@/app/ui/fonts";
 import Image from 'next/image';
+import {login} from "@/app/api/route";
+import { cookies } from "next/headers";
 
-export default function Page() {
+export default async function Page() {
+    const token = await login() ?? 'No token';
+    console.log('Token:', token);
     return (
         <main className="flex min-h-screen flex-col p-6">
             <div className={styles.shape}></div>
@@ -25,7 +29,7 @@ export default function Page() {
                         , brought to you by Vercel.
                     </p>
                     <Link
-                        href="/login"
+                        href="/dashboard"
                         className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
                     >
                         <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6"/>
